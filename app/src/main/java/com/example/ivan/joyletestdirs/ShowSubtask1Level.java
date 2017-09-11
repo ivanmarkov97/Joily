@@ -39,6 +39,12 @@ public class ShowSubtask1Level extends AppCompatActivity {
     private ItemTouchHelper itemTouchHelper;
     private ArrayList<String> navTab = new ArrayList<>();
     private LinearLayout linearLayout;
+    private SharedPreferences sharedPreferences;
+    private final String sharedPrefName = "task_way";
+    private final String WAY_TO_SUBTASK_1 = "way_to_sub1";
+    private final String WAY_TO_SUBTASK_2 = "way_to_sub2";
+    private final String WAY_TO_SUBTASK_3 = "way_to_sub3";
+    private final String WAY_TO_SUBTASK_4 = "way_to_sub4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +66,19 @@ public class ShowSubtask1Level extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(taskAdapter);
 
+
+        sharedPreferences = getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
+        taskAdapter.setSharedPreferences(sharedPreferences);
+
+        taskAdapter.setNavTab(navTab);
+
         navTab = intent.getStringArrayListExtra("tasks_nav_0");
 
         if(navTab == null){
             navTab = new ArrayList<>();
+            sharedPreferences = taskAdapter.getSharedPreferences();
+            navTab.add(sharedPreferences.getString(WAY_TO_SUBTASK_1, ""));
         }
-        taskAdapter.setNavTab(navTab);
 
         ShowSubtask1Level.SimpleItemTouchHelperCallback simpleItemTouchHelperCallback = new ShowSubtask1Level.SimpleItemTouchHelperCallback();
         simpleItemTouchHelperCallback.setTaskAdapter(taskAdapter);

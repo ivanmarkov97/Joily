@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ItemTouchHelper itemTouchHelper;
     List<Task> tasks = new ArrayList<>();
     ArrayList<String> navTab = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private final String sharedPrefName = "task_way";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(taskAdapter);
 
         taskAdapter.setNavTab(navTab);
+
+        sharedPreferences = getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
+        taskAdapter.setSharedPreferences(sharedPreferences);
 
         SimpleItemTouchHelperCallback simpleItemTouchHelperCallback = new SimpleItemTouchHelperCallback();
         simpleItemTouchHelperCallback.setTaskAdapter(taskAdapter);

@@ -35,6 +35,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private LinearLayout linearLayout;
     private Intent intent;
     private ArrayList<String> navTab = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private final String sharedPrefName = "task_way";
+    private final String WAY_TO_SUBTASK_1 = "";
 
     public TaskAdapter(){
         this.context = null;
@@ -57,6 +60,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     public void setNavTab(ArrayList<String> navTab) {
         this.navTab = navTab;
+    }
+
+    public void setSharedPreferences(SharedPreferences sharedPreferences){
+        this.sharedPreferences = sharedPreferences;
     }
 
     @Override
@@ -91,40 +98,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                         navTab.add(textView.getText().toString());
                         intent.putStringArrayListExtra("tasks_nav_0", navTab);
                         Log.d("MyTAG", "0");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(WAY_TO_SUBTASK_1, textView.getText().toString());
+                        editor.apply();
+
                         v.getContext().startActivity(intent);
                         Log.d("MyTAG", "startted_1");
                     }
-                    /*if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask1Level")) {
-                        intent = new Intent(v.getContext(), ShowSubtask2Level.class);
-                        Toast.makeText(v.getContext(), "1", Toast.LENGTH_SHORT).show();
-                        navTab.add(textView.getText().toString());
-                        intent.putStringArrayListExtra("tasks_nav_1", navTab);
-                        Log.d("MyTAG", "1");
-                        v.getContext().startActivity(intent);
-                    }
-                    if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask2Level")) {
-                        intent = new Intent(v.getContext(), ShowSubtask3Level.class);
-                        Toast.makeText(v.getContext(), "2", Toast.LENGTH_SHORT).show();
-                        navTab.add(textView.getText().toString());
-                        intent.putStringArrayListExtra("tasks_nav_2", navTab);
-                        Log.d("MyTAG", "2");
-                        v.getContext().startActivity(intent);
-                    }
-                    if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask3Level")) {
-                        intent = new Intent(v.getContext(), ShowSubtask4Level.class);
-                        Toast.makeText(v.getContext(), "3", Toast.LENGTH_SHORT).show();
-                        navTab.add(textView.getText().toString());
-                        intent.putStringArrayListExtra("tasks_nav_3", navTab);
-                        Log.d("MyTAG", "3");
-                        v.getContext().startActivity(intent);
-                    }*/
-                    //Toast.makeText(v.getContext(), v.getContext().getClass().getName(), Toast.LENGTH_SHORT).show();
-                    //intent.putExtra("task_name", textView.getText().toString());
-
-                    //Intent intent = new Intent(v.getContext(), ShowTask.class);
-                    //intent.putExtra("task_name", "KEK");
-                    //Toast.makeText(v.getContext(), textView.getText().toString(), Toast.LENGTH_SHORT).show();
-                    //intent.putExtras(intent);
                 }
             });
         }

@@ -34,6 +34,11 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
     private List<Task> tasks;
     private LinearLayout linearLayout;
     private ArrayList<String> navTab = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private final String WAY_TO_SUBTASK_1 = "way_to_sub1";
+    private final String WAY_TO_SUBTASK_2 = "way_to_sub2";
+    private final String WAY_TO_SUBTASK_3 = "way_to_sub3";
+    private final String WAY_TO_SUBTASK_4 = "way_to_sub4";
 
     public ShowTaskAdapter(Context context, List<Task> tasks){
         this.context = context;
@@ -50,6 +55,14 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
 
     public void setNavTab(ArrayList<String> navTab) {
         this.navTab = navTab;
+    }
+
+    public void setSharedPreferences(SharedPreferences sharedPreferences){
+        this.sharedPreferences = sharedPreferences;
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
     }
 
     @Override
@@ -84,6 +97,10 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
                         navTab.add(textView.getText().toString());
                         intent.putStringArrayListExtra("tasks_nav_0", navTab);
                         Log.d("MyTAG", "0");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(WAY_TO_SUBTASK_1, textView.getText().toString());
+
                         v.getContext().startActivity(intent);
                     }
                     if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask1Level")) {
@@ -92,6 +109,10 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
                         navTab.add(textView.getText().toString());
                         intent.putStringArrayListExtra("tasks_nav_1", navTab);
                         Log.d("MyTAG", "1");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(WAY_TO_SUBTASK_2, textView.getText().toString());
+
                         v.getContext().startActivity(intent);
                     }
                     if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask2Level")) {
@@ -100,6 +121,10 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
                         navTab.add(textView.getText().toString());
                         intent.putStringArrayListExtra("tasks_nav_2", navTab);
                         Log.d("MyTAG", "2");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(WAY_TO_SUBTASK_3, textView.getText().toString());
+
                         v.getContext().startActivity(intent);
                     }
                     if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask3Level")) {
@@ -108,6 +133,10 @@ public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.ShowTa
                         navTab.add(textView.getText().toString());
                         intent.putStringArrayListExtra("tasks_nav_3", navTab);
                         Log.d("MyTAG", "3");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(WAY_TO_SUBTASK_4, textView.getText().toString());
+
                         v.getContext().startActivity(intent);
                     }
                     if(v.getContext().getClass().getName().equals("com.example.ivan.joyletestdirs.ShowSubtask3Level")) {
